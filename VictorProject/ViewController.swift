@@ -54,6 +54,7 @@ class ViewController: UIViewController {
         return textField
     }()
     
+    // Botão do app
     private var button: UIButton = {
         let button = UIButton()
         button.setTitle("Advance", for: .normal)
