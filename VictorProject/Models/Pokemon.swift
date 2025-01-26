@@ -10,15 +10,15 @@ import UIKit
 struct Pokemon: Codable {
     let name: String
     let sprites: Sprites
-    let types: [PokemonType]
+    let types: [TypeSlot]
     let height: Int
     let weight: Int
-    let abilities: [String]
+    let abilities: [AbilitySlot]
 }
 
 struct Sprites: Codable {
     let frontDefault: String
-    let other: OtherSprites
+    let other: OtherSprites?
     
     
     
@@ -29,7 +29,7 @@ struct Sprites: Codable {
 }
 
 struct OtherSprites: Codable {
-    let officeArtwork: OfficeArtwork
+    let officeArtwork: OfficeArtwork?
     
     enum CodingKeys: String, CodingKey {
         case officeArtwork = "official-artwork"
@@ -45,25 +45,43 @@ struct OfficeArtwork: Codable {
 }
 
 
-struct PokemonDetail: Codable {
-    let int: Int
-    let name: String
-    let sprites: Sprites
-}
+//struct PokemonDetail: Codable {
+//    let int: Int
+//    let name: String
+//    let sprites: Sprites
+//}
+//
+//struct PokemonType: Codable {
+//    let type: TypeDetail
+//}
 
-struct PokemonType: Codable {
+struct TypeSlot: Codable {
+    let slot: Int
     let type: TypeDetail
 }
 
-
 struct TypeDetail: Codable {
     let name: String
+    let url: String
 }
 
-struct PokemonAbility: Codable {
+//struct PokemonAbility: Codable {
+//    let abilities: AbilityDetail
+//}
+
+struct AbilitySlot: Codable {
+    let slot: Int
+    let isHidden: Bool
     let ability: AbilityDetail
+    
+    enum CodingKeys: String, CodingKey {
+            case slot
+            case isHidden = "is_hidden"
+            case ability
+        }
 }
 
 struct AbilityDetail: Codable {
     let name: String
+    let url: String
 }

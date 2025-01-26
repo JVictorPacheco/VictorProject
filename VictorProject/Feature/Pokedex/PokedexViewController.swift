@@ -36,8 +36,9 @@ final class PokedexViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupBindings()
         viewModel.loadPokemons()
+        setupBindings()
+        
     }
     
     // MARK: - Setup
@@ -66,6 +67,8 @@ final class PokedexViewController: UIViewController {
         }
     }
     
+    
+    
     private func setupConstraints() {
         welcomeLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
@@ -89,11 +92,27 @@ extension PokedexViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let pokemon = viewModel.pokemon(at: indexPath.row)
+//        let detailVC = PokemonDetailViewController(pokemon: pokemon)
+//        present(detailVC, animated: true)
         
         var content = cell.defaultContentConfiguration()
         content.text = pokemon.name.capitalized
         cell.contentConfiguration = content
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let pokemon = viewModel.pokemon(at: indexPath.row)
+        let detailVC = PokemonDetailViewController(pokemon: pokemon)
+        detailVC.modalPresentationStyle = .overCurrentContext
+        detailVC.modalTransitionStyle = .crossDissolve
+        present(detailVC, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if viewModel.numberOfPokemons() == 0 {
+            viewModel.loadPokemons()
+        }
     }
 }
