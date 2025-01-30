@@ -12,18 +12,16 @@ import Kingfisher
 final class PokemonDetailViewController: UIViewController {
     
     // MARK: - Properties
-    
     private let viewModel: PokemonDetailViewModel
-    
     
     // MARK: - UI Components
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 20
+        view.clipsToBounds = true
         return view
     }()
-    
     
     private let pokemonImageView: UIImageView = {
         let imageView = UIImageView()
@@ -31,11 +29,11 @@ final class PokemonDetailViewController: UIViewController {
         return imageView
     }()
     
-    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
     
@@ -44,19 +42,20 @@ final class PokemonDetailViewController: UIViewController {
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.textColor = UIColor(white: 0.9, alpha: 1.0)
         return label
     }()
     
     private let closeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Close", for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitle("Fechar", for: .normal)
+        button.backgroundColor = .clear
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
-    
-    
     
     // MARK: - Initialization
     init(pokemon: Pokemon) {
@@ -64,7 +63,6 @@ final class PokemonDetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overCurrentContext
         modalTransitionStyle = .crossDissolve
-        
     }
     
     required init?(coder: NSCoder) {
@@ -74,14 +72,93 @@ final class PokemonDetailViewController: UIViewController {
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         setupView()
         bindViewModel()
     }
     
-    // MARK: - SETUP
-    private func setupView() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Garantir que o fundo seja recriado sempre que o layout for atualizado
+        setupGradient()
+        setupHoneycombPattern()
+    }
+    
+    // MARK: - Setup Gradient
+    private func setupGradient() {
+        containerView.layer.sublayers?.removeAll { $0 is CAGradientLayer }
         
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [
+            UIColor.systemBlue.cgColor,
+            UIColor.systemPurple.cgColor
+        ]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.frame = containerView.bounds
+        
+        containerView.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    // MARK: - Setup Honeycomb (Padrão de Colmeia)
+    private func setupHoneycombPattern() {
+        containerView.layer.sublayers?.removeAll { $0 is CAShapeLayer }
+        
+        let shapeLayer = CAShapeLayer()
+        let path = UIBezierPath()
+        
+        let hexSize: CGFloat = 20 // Tamanho dos hexágonos
+        let hexWidth = hexSize * 2
+        let hexHeight = sqrt(3) * hexSize
+        let spacing = hexSize * 0.2 // Pequeno espaço entre os hexágonos
+        
+        let width = containerView.bounds.width
+        let height = containerView.bounds.height
+        
+        for x in stride(from: 0, to: width, by: hexWidth + spacing) {
+            for y in stride(from: 0, to: height, by: hexHeight + spacing) {
+                
+                let offsetX = (Int(y / hexHeight) % 2 == 0) ? 0 : hexWidth / 2
+                
+                let centerX = x + offsetX
+                let centerY = y
+                
+                let hexagonPath = createHexagonPath(center: CGPoint(x: centerX, y: centerY), size: hexSize)
+                path.append(hexagonPath)
+            }
+        }
+        
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.white.withAlphaComponent(0.15).cgColor // Apenas as linhas
+        shapeLayer.lineWidth = 1
+        shapeLayer.fillColor = UIColor.clear.cgColor // Remove qualquer preenchimento
+        
+        containerView.layer.insertSublayer(shapeLayer, above: containerView.layer.sublayers?.first)
+    }
+    
+    // Função auxiliar para desenhar um hexágono sem preenchimento
+    private func createHexagonPath(center: CGPoint, size: CGFloat) -> UIBezierPath {
+        let path = UIBezierPath()
+        for i in 0..<6 {
+            let angle = CGFloat(i) * (CGFloat.pi / 3) // 60 graus por lado
+            let x = center.x + size * cos(angle)
+            let y = center.y + size * sin(angle)
+            if i == 0 {
+                path.move(to: CGPoint(x: x, y: y))
+            } else {
+                path.addLine(to: CGPoint(x: x, y: y))
+            }
+        }
+        path.close()
+        return path
+    }
+    
+    // MARK: - Setup View
+    private func setupView() {
         view.addSubview(containerView)
         containerView.addSubview(pokemonImageView)
         containerView.addSubview(nameLabel)
@@ -91,7 +168,6 @@ final class PokemonDetailViewController: UIViewController {
         setupConstraints()
         setupCloseButton()
     }
-    
     
     private func setupConstraints() {
         containerView.snp.makeConstraints { make in
@@ -120,14 +196,13 @@ final class PokemonDetailViewController: UIViewController {
         closeButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(200)
-            make.height.equalTo(50)
+            make.width.equalTo(150)
+            make.height.equalTo(45)
         }
     }
     
-    
     private func setupCloseButton() {
-        closeButton.addTarget(self, action: #selector(dimissModal), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
     }
     
     private func bindViewModel() {
@@ -139,9 +214,7 @@ final class PokemonDetailViewController: UIViewController {
         }
     }
     
-    @objc private func dimissModal() {
+    @objc private func dismissModal() {
         dismiss(animated: true)
     }
-    
-    
 }
