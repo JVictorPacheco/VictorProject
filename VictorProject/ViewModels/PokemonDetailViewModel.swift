@@ -15,7 +15,9 @@ final class PokemonDetailViewModel {
         self.pokemon = pokemon
     }
     
-    
+    var pokemonId: Int? {
+        pokemon.id
+    }
     var pokemonName: String {
         pokemon.name.capitalized
     }

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import SDWebImage
 
 final class PokemonDetailViewController: UIViewController {
     
@@ -23,8 +24,8 @@ final class PokemonDetailViewController: UIViewController {
         return view
     }()
     
-    private let pokemonImageView: UIImageView = {
-        let imageView = UIImageView()
+    private let pokemonImageView: SDAnimatedImageView = {
+        let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -208,13 +209,32 @@ final class PokemonDetailViewController: UIViewController {
     private func bindViewModel() {
         nameLabel.text = viewModel.pokemonName
         detailsLabel.text = viewModel.pokemonDetails
-        
-        if let url = URL(string: viewModel.pokemonImage) {
-            pokemonImageView.kf.setImage(with: url)
+
+        if let pokemonID = viewModel.pokemonId { // Certifique-se de que tem um ID válido
+            loadPokemonGif(id: pokemonID)
+        } else {
+            if let url = URL(string: viewModel.pokemonImage) {
+                pokemonImageView.kf.setImage(with: url)
+            }
+            print("⚠️ ID do Pokémon não encontrado")
         }
     }
     
     @objc private func dismissModal() {
         dismiss(animated: true)
+    }
+    
+    private func loadPokemonGif(id: Int) {
+        let gifName = "poke_\(id)" // Exemplo: "poke_1"
+
+        // Verifica se o caminho do arquivo existe dentro do bundle
+        if let gifPath = Bundle.main.path(forResource: gifName, ofType: "gif") {
+            let gifURL = URL(fileURLWithPath: gifPath)
+            let gifImage = SDAnimatedImage(contentsOfFile: gifURL.path)
+            pokemonImageView.image = gifImage
+            print("✅ GIF \(gifName) carregado com sucesso!")
+        } else {
+            print("❌ Erro: GIF \(gifName) não encontrado no Bundle!")
+        }
     }
 }
