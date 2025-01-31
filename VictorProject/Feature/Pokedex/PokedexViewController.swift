@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class PokedexViewController: UIViewController {
+final class PokedexViewController: UIViewController{
     // MARK: - Properties
     private let viewModel: PokemonListViewModel
     var username: String = ""
@@ -13,6 +13,16 @@ final class PokedexViewController: UIViewController {
         label.numberOfLines = 0
         label.textColor = .white.withAlphaComponent(0.9)
         return label
+    }()
+    
+    
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search Pokemon"
+        searchBar.searchBarStyle = .minimal
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.searchTextField.textColor = .black
+        return searchBar
     }()
     
     private let tableView: UITableView = {
@@ -39,6 +49,7 @@ final class PokedexViewController: UIViewController {
         viewModel.loadPokemons()
         setupBindings()
         
+        
     }
     
     // MARK: - Setup
@@ -46,8 +57,15 @@ final class PokedexViewController: UIViewController {
         view.backgroundColor = .blue
         
         setupWelcomeLabel()
+        setupSearchBar()
         setupTableView()
         setupConstraints()
+        
+    }
+    
+    func setupSearchBar() {
+        view.addSubview(searchBar)
+        searchBar.delegate = self
     }
     
     private func setupWelcomeLabel() {
@@ -76,18 +94,36 @@ final class PokedexViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-20)
         }
         
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(welcomeLabel         .snp.bottom)
+            make.leading.trailing.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(welcomeLabel.snp.bottom).offset(20)
+            make.top.equalTo(searchBar.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
 
 // MARK: - UITableView DataSource & Delegate
+
+extension PokedexViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterPokemons(with: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+}
+
+
 extension PokedexViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfPokemons()
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)

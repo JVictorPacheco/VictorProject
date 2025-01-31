@@ -9,7 +9,7 @@ final class PokemonAPIService: PokemonService {
         let dispatchGroup = DispatchGroup()
         var pokemons: [Pokemon] = []
         
-        for id in 1...999 {
+        for id in 1...200 {
             dispatchGroup.enter()
             fetchPokemon(id: id) { pokemon in
                 if let pokemon = pokemon {
