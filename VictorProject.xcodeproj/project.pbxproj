@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3FEDAD32D4C801E006C545D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E3FEDAD22D4C801E006C545D /* SDWebImage */; };
+		FB10CF442D3DF18500D7A0A7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB10CF432D3DF18500D7A0A7 /* Alamofire */; };
 		FB8D2D5A2D35F22400BA6F6B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB8D2D592D35F22400BA6F6B /* SnapKit */; };
+		FBF8DBAF2D44167B0046035C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBF8DBAE2D44167B0046035C /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +72,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF8DBAF2D44167B0046035C /* Kingfisher in Frameworks */,
 				FB8D2D5A2D35F22400BA6F6B /* SnapKit in Frameworks */,
+				E3FEDAD32D4C801E006C545D /* SDWebImage in Frameworks */,
+				FB10CF442D3DF18500D7A0A7 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +137,9 @@
 			name = VictorProject;
 			packageProductDependencies = (
 				FB8D2D592D35F22400BA6F6B /* SnapKit */,
+				FB10CF432D3DF18500D7A0A7 /* Alamofire */,
+				FBF8DBAE2D44167B0046035C /* Kingfisher */,
+				E3FEDAD22D4C801E006C545D /* SDWebImage */,
 			);
 			productName = VictorProject;
 			productReference = FB573B922D35E3CC0033AC2A /* VictorProject.app */;
@@ -216,6 +225,9 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FB8D2D582D35F22400BA6F6B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				FB10CF422D3DF18500D7A0A7 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				FBF8DBAD2D44167B0046035C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E3FEDAD12D4C801E006C545D /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FB573B932D35E3CC0033AC2A /* Products */;
@@ -296,25 +308,34 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VictorProject/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PokeList;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Joa-o-Victor-Maciel-Pacheco.VictorProject";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.joaovictor.pokelist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -323,25 +344,34 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VictorProject/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PokeList;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Joa-o-Victor-Maciel-Pacheco.VictorProject";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.joaovictor.pokelist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -574,6 +604,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E3FEDAD12D4C801E006C545D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.20.0;
+			};
+		};
+		FB10CF422D3DF18500D7A0A7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
 		FB8D2D582D35F22400BA6F6B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -582,13 +628,36 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		FBF8DBAD2D44167B0046035C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E3FEDAD22D4C801E006C545D /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3FEDAD12D4C801E006C545D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		FB10CF432D3DF18500D7A0A7 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB10CF422D3DF18500D7A0A7 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		FB8D2D592D35F22400BA6F6B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB8D2D582D35F22400BA6F6B /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		FBF8DBAE2D44167B0046035C /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBF8DBAD2D44167B0046035C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

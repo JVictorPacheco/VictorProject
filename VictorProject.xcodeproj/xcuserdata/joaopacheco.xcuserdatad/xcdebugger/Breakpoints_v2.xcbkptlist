@@ -14,8 +14,8 @@
             filePath = "VictorProject/InfosApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "12"
-            endingLineNumber = "12"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "InfosApp"
             landmarkType = "3">
          </BreakpointContent>
@@ -23,17 +23,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3D996B1A-39E7-4E14-A267-E1B1A1E75AA7"
+            uuid = "D68576AE-EB34-463A-B0AC-5052575DC1FE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VictorProject/InfosApp.swift"
+            filePath = "VictorProject/Feature/Pokedex/PokedexViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "InfosApp"
-            landmarkType = "3">
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "7C24D9A0-4A42-462E-BBA0-5969CF52A9B7"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "60E6A0F3-49C8-48F9-A8A9-3418F860A0E9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VictorProject/Feature/Pokedex/PokemonDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "bindViewModel()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "60E6A0F3-49C8-48F9-A8A9-3418F860A0E9 - 349f4ef803e9583b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VictorProject.PokemonDetailViewController.bindViewModel() -&gt; ()"
+                  moduleName = "VictorProject.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrepacheco/Documents/Dev/VictorProject/VictorProject/Feature/Pokedex/PokemonDetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "213"
+                  endingLineNumber = "213">
+               </Location>
+               <Location
+                  uuid = "60E6A0F3-49C8-48F9-A8A9-3418F860A0E9 - 349f4ef803e9583b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VictorProject.PokemonDetailViewController.bindViewModel() -&gt; ()"
+                  moduleName = "VictorProject.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrepacheco/Documents/Dev/VictorProject/VictorProject/Feature/Pokedex/PokemonDetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "213"
+                  endingLineNumber = "213">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
