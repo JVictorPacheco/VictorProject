@@ -48,8 +48,13 @@ final class PokedexViewController: UIViewController{
         setupView()
         viewModel.loadPokemons()
         setupBindings()
+        buttonBackColor()
+    
         
-        
+    }
+    
+    func buttonBackColor() {
+        navigationController?.navigationBar.tintColor = .white
     }
     
     // MARK: - Setup
@@ -62,6 +67,90 @@ final class PokedexViewController: UIViewController{
         setupConstraints()
         
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Garantir que o fundo seja recriado sempre que o layout for atualizado
+        setupGradient()
+        setupHoneycombPattern()
+    }
+    
+    // MARK: - Setup Gradient
+    private func setupGradient() {
+        view.layer.sublayers?.removeAll { $0 is CAGradientLayer }
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [
+            UIColor.systemBlue.cgColor,
+            UIColor.systemPurple.cgColor
+        ]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.frame = view.bounds
+        
+        view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    // MARK: - Setup Honeycomb (Padrão de Colmeia)
+    private func setupHoneycombPattern() {
+        view.layer.sublayers?.removeAll { $0 is CAShapeLayer }
+        
+        let shapeLayer = CAShapeLayer()
+        let path = UIBezierPath()
+        
+        let hexSize: CGFloat = 20 // Tamanho dos hexágonos
+        let hexWidth = hexSize * 2
+        let hexHeight = sqrt(3) * hexSize
+        let spacing = hexSize * 0.2 // Pequeno espaço entre os hexágonos
+        
+        let width = view.bounds.width
+        let height = view.bounds.height
+        
+        for x in stride(from: 0, to: width, by: hexWidth + spacing) {
+            for y in stride(from: 0, to: height, by: hexHeight + spacing) {
+                
+                let offsetX = (Int(y / hexHeight) % 2 == 0) ? 0 : hexWidth / 2
+                
+                let centerX = x + offsetX
+                let centerY = y
+                
+                let hexagonPath = createHexagonPath(center: CGPoint(x: centerX, y: centerY), size: hexSize)
+                path.append(hexagonPath)
+            }
+        }
+        
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.white.withAlphaComponent(0.15).cgColor // Apenas as linhas
+        shapeLayer.lineWidth = 1
+        shapeLayer.fillColor = UIColor.clear.cgColor // Remove qualquer preenchimento
+        
+        view.layer.insertSublayer(shapeLayer, above: view.layer.sublayers?.first)
+    }
+    
+    // Função auxiliar para desenhar um hexágono sem preenchimento
+    private func createHexagonPath(center: CGPoint, size: CGFloat) -> UIBezierPath {
+        let path = UIBezierPath()
+        for i in 0..<6 {
+            let angle = CGFloat(i) * (CGFloat.pi / 3) // 60 graus por lado
+            let x = center.x + size * cos(angle)
+            let y = center.y + size * sin(angle)
+            if i == 0 {
+                path.move(to: CGPoint(x: x, y: y))
+            } else {
+                path.addLine(to: CGPoint(x: x, y: y))
+            }
+        }
+        path.close()
+        return path
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     func setupSearchBar() {
         view.addSubview(searchBar)
