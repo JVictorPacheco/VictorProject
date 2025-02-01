@@ -20,7 +20,7 @@ final class WelcomeViewController: UIViewController {
     
     public var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter your name"
+        textField.placeholder = "Coloque o seu nome aqui..."
         textField.backgroundColor = .white
         textField.textColor = .black
         textField.layer.cornerRadius = 10
@@ -29,7 +29,7 @@ final class WelcomeViewController: UIViewController {
         textField.textAlignment = .center
         
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Enter your name",
+            string: "Coloque o seu nome aqui...",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
         )
         
@@ -38,7 +38,7 @@ final class WelcomeViewController: UIViewController {
     
     private var button: UIButton = {
         let button = UIButton()
-        button.setTitle("Advance", for: .normal)
+        button.setTitle("Avance", for: .normal)
         button.backgroundColor = .blue
         button.addTarget(self, action: #selector(buttonNavigation), for: .touchUpInside)
         button.layer.cornerRadius = 10
@@ -108,8 +108,8 @@ final class WelcomeViewController: UIViewController {
     }
     
     private func showAlert() {
-        let alert = UIAlertController(title: "Error",
-                                    message: "Please enter your name",
+        let alert = UIAlertController(title: "Erro",
+                                    message: "Por favor insira um nome para o seu pokémon!",
                                     preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)

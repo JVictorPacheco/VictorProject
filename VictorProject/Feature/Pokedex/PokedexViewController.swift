@@ -18,7 +18,7 @@ final class PokedexViewController: UIViewController{
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "Search Pokemon"
+        searchBar.placeholder = "Procure o seu pokemon favorito!"
         searchBar.searchBarStyle = .minimal
         searchBar.searchTextField.backgroundColor = .white
         searchBar.searchTextField.textColor = .black
