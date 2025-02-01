@@ -217,8 +217,6 @@ extension PokedexViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let pokemon = viewModel.pokemon(at: indexPath.row)
-//        let detailVC = PokemonDetailViewController(pokemon: pokemon)
-//        present(detailVC, animated: true)
         
         var content = cell.defaultContentConfiguration()
         content.text = pokemon.name.capitalized
@@ -231,6 +229,7 @@ extension PokedexViewController: UITableViewDataSource, UITableViewDelegate {
         let pokemon = viewModel.pokemon(at: indexPath.row)
         let detailVC = PokemonDetailViewController(pokemon: pokemon)
         detailVC.modalPresentationStyle = .overCurrentContext
+        
         detailVC.modalTransitionStyle = .crossDissolve
         present(detailVC, animated: true, completion: nil)
     }

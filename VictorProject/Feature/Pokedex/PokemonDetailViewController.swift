@@ -9,11 +9,13 @@ import UIKit
 import SnapKit
 import Kingfisher
 import SDWebImage
+import AVFoundation
 
 final class PokemonDetailViewController: UIViewController {
     
     // MARK: - Properties
     private let viewModel: PokemonDetailViewModel
+    var audioPlayer: AVPlayer?
     
     // MARK: - UI Components
     private let containerView: UIView = {
@@ -78,8 +80,21 @@ final class PokemonDetailViewController: UIViewController {
         bindViewModel()
     }
     
+    fileprivate func setFlipping() {
+        // Inicia o containerView "de costas" (180° no eixo Y)
+        //        containerView.layer.transform = CATransform3DMakeRotation(.pi, 0, 1, 0)
+        //        containerView.alpha = 0.0
+        
+        // Aplica a animação de flip para aparecer
+        UIView.animate(withDuration: 0.6, animations: {
+            self.containerView.layer.transform = CATransform3DIdentity // Volta ao estado normal
+            self.containerView.alpha = 1.0
+        })
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setFlipping()
     }
     
     override func viewDidLayoutSubviews() {
@@ -168,6 +183,21 @@ final class PokemonDetailViewController: UIViewController {
         
         setupConstraints()
         setupCloseButton()
+        
+        // Adicionar gesto de toque para tocar o áudio ao clicar na imagem
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pokemonImageTapped))
+        pokemonImageView.isUserInteractionEnabled = true // Habilitar interação
+        pokemonImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func pokemonImageTapped() {
+        guard let audioURLString = viewModel.pokemonAudioUrl, // A URL do áudio deve estar no ViewModel
+              let audioURL = URL(string: audioURLString) else {
+            print("❌ Erro: URL do áudio inválida ou não encontrada!")
+            return
+        }
+
+        playAudio(from: audioURL)
     }
     
     private func setupConstraints() {
@@ -209,7 +239,7 @@ final class PokemonDetailViewController: UIViewController {
     private func bindViewModel() {
         nameLabel.text = viewModel.pokemonName
         detailsLabel.text = viewModel.pokemonDetails
-
+        
         if let pokemonID = viewModel.pokemonId { // Certifique-se de que tem um ID válido
             loadPokemonGif(id: pokemonID)
         } else {
@@ -221,12 +251,18 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     @objc private func dismissModal() {
-        dismiss(animated: true)
+        UIView.animate(withDuration: 0.6, animations: {
+            self.containerView.layer.transform = CATransform3DMakeRotation(.pi, 0, 1, 0) // Gira para sair
+            self.containerView.alpha = 0.0
+        }) { _ in
+            self.dismiss(animated: false, completion: nil) // Fecha sem animação padrão
+        }
     }
+    
     
     private func loadPokemonGif(id: Int) {
         let gifName = "poke_\(id)" // Exemplo: "poke_1"
-
+        
         // Verifica se o caminho do arquivo existe dentro do bundle
         if let gifPath = Bundle.main.path(forResource: gifName, ofType: "gif") {
             let gifURL = URL(fileURLWithPath: gifPath)
@@ -237,4 +273,18 @@ final class PokemonDetailViewController: UIViewController {
             print("❌ Erro: GIF \(gifName) não encontrado no Bundle!")
         }
     }
+    
+    private func playAudio(from url: URL) {
+        if let player = audioPlayer {
+            player.pause() // Pausar áudio se já estiver tocando
+        }
+
+        let playerItem = AVPlayerItem(url: url)
+        audioPlayer = AVPlayer(playerItem: playerItem)
+        audioPlayer?.play()
+
+        print("🎵 Tocando áudio: \(url.absoluteString)")
+    }
 }
+
+

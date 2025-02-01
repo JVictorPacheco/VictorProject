@@ -36,6 +36,10 @@ final class PokemonDetailViewModel {
             .joined(separator: ", ")
     }
     
+    var pokemonAudioUrl: String? {
+        pokemon.cries.latest
+    }
+    
     var pokemonDetails: String {
         """
         Altura: \(pokemon.height / 10) m
