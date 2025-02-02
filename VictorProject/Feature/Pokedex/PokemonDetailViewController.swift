@@ -60,6 +60,72 @@ final class PokemonDetailViewController: UIViewController {
         return button
     }()
     
+    private lazy var attackView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white.withAlphaComponent(0.1)
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
+    
+    private lazy var pokeImageView: UIImageView = {
+        let pokeImageView = UIImageView()
+        pokeImageView.image = UIImage(named: "pokeball")
+        pokeImageView.contentMode = .scaleAspectFit
+        return pokeImageView
+    }()
+    
+    
+    private lazy var attackLabel: UILabel = {
+        let label = UILabel()
+        label.text = "ATQ"
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var attackValueLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var defenseView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white.withAlphaComponent(0.1)
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
+    
+    private lazy var defenseLabel: UILabel = {
+        let label = UILabel()
+        label.text = "DEF"
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var defenseValueLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        return label
+    }()
+    
     // MARK: - Initialization
     init(pokemon: Pokemon) {
         self.viewModel = PokemonDetailViewModel(pokemon: pokemon)
@@ -82,8 +148,8 @@ final class PokemonDetailViewController: UIViewController {
     
     fileprivate func setFlipping() {
         // Inicia o containerView "de costas" (180° no eixo Y)
-        //        containerView.layer.transform = CATransform3DMakeRotation(.pi, 0, 1, 0)
-        //        containerView.alpha = 0.0
+        //               containerView.layer.transform = CATransform3DMakeRotation(.pi, 0, 1, 0)
+        //                containerView.alpha = 0.0
         
         // Aplica a animação de flip para aparecer
         UIView.animate(withDuration: 0.6, animations: {
@@ -180,6 +246,13 @@ final class PokemonDetailViewController: UIViewController {
         containerView.addSubview(nameLabel)
         containerView.addSubview(detailsLabel)
         containerView.addSubview(closeButton)
+        containerView.addSubview(attackView)
+        attackView.addSubview(attackLabel)
+        attackView.addSubview(attackValueLabel)
+        containerView.addSubview(defenseView)
+        defenseView.addSubview(defenseLabel)
+        defenseView.addSubview(defenseValueLabel)
+        containerView.addSubview(pokeImageView)
         
         setupConstraints()
         setupCloseButton()
@@ -191,29 +264,7 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     @objc private func pokemonImageTapped() {
-        // Feedback tátil
-        let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-        feedbackGenerator.impactOccurred()
-        
-        UIView.animate(withDuration: 0.15, animations: {
-                // Primeiro diminui
-                self.pokemonImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                self.pokemonImageView.alpha = 0.7
-        }) { _ in
-            UIView.animate(withDuration: 0.15) {
-                // Depois volta com um leve giro
-                self.pokemonImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0).rotated(by: .pi * 0.03)
-                self.pokemonImageView.alpha = 1.0
-            } completion: { _ in
-                UIView.animate(withDuration: 0.1) {
-                    // Volta à posição normal
-                    self.pokemonImageView.transform = .identity
-                }
-            }
-        }
-        
-        // Reprodução do áudio
-        guard let audioURLString = viewModel.pokemonAudioUrl,
+        guard let audioURLString = viewModel.pokemonAudioUrl, // A URL do áudio deve estar no ViewModel
               let audioURL = URL(string: audioURLString) else {
             print("❌ Erro: URL do áudio inválida ou não encontrada!")
             return
@@ -252,6 +303,53 @@ final class PokemonDetailViewController: UIViewController {
             make.width.equalTo(150)
             make.height.equalTo(45)
         }
+        
+        attackView.snp.makeConstraints { make in
+            make.height.equalTo(56)
+            make.width.equalTo(72)
+            make.top.equalTo(detailsLabel.snp.bottom).offset(20)
+            make.right.equalToSuperview().inset(32)
+        }
+        
+        attackLabel.snp.makeConstraints { make in
+            make.height.equalTo(16)
+            make.bottom.equalToSuperview().inset(4)
+            make.centerX.equalTo(attackView)
+        }
+        
+        attackValueLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.top.equalToSuperview().inset(8)
+            make.centerX.equalToSuperview()
+        }
+        
+        pokeImageView.snp.makeConstraints { make in
+            make.height.equalTo(56)
+            make.width.equalTo(72)
+            make.top.equalTo(detailsLabel.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+        }
+        
+        defenseView.snp.makeConstraints { make in
+            make.height.equalTo(56)
+            make.width.equalTo(72)
+            make.top.equalTo(detailsLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview().inset(32)
+        }
+        
+        defenseLabel.snp.makeConstraints { make in
+            make.height.equalTo(16)
+            make.bottom.equalToSuperview().inset(4)
+            make.centerX.equalTo(defenseView)
+        }
+        
+        defenseValueLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.top.equalToSuperview().inset(8)
+            make.centerX.equalToSuperview()
+        }
+        
+        
     }
     
     private func setupCloseButton() {
@@ -261,6 +359,10 @@ final class PokemonDetailViewController: UIViewController {
     private func bindViewModel() {
         nameLabel.text = viewModel.pokemonName
         detailsLabel.text = viewModel.pokemonDetails
+        attackValueLabel.text = String(viewModel.pokemonAtack)
+        attackLabel.text = "ATQ"
+        defenseValueLabel.text = String(viewModel.pokemonDefense)
+        defenseLabel.text = "DEF"
         
         if let pokemonID = viewModel.pokemonId { // Certifique-se de que tem um ID válido
             loadPokemonGif(id: pokemonID)
@@ -297,25 +399,17 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     private func playAudio(from url: URL) {
-        let audioManager = AudioManager()
-
-        // Para tocar um arquivo OGG
-        audioManager.playOGGAudio(from: url)
+        if let player = audioPlayer {
+            player.pause() // Pausar áudio se já estiver tocando
+        }
+        
+        let playerItem = AVPlayerItem(url: url)
+        audioPlayer = AVPlayer(playerItem: playerItem)
+        audioPlayer?.play()
+        
         print("🎵 Tocando áudio: \(url.absoluteString)")
     }
-    
-    func convertOGGToM4A(oggURL: URL, completion: @escaping (URL?) -> Void) {
-            let asset = AVAsset(url: oggURL)
-            let export = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A)
-            export?.outputFileType = .m4a
-            
-            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent("converted.m4a")
-            export?.outputURL = outputURL
-            
-            export?.exportAsynchronously {
-                completion(outputURL)
-            }
-        }
 }
+
 
 
