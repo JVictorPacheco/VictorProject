@@ -49,4 +49,12 @@ final class PokemonDetailViewModel {
         """
     }
     
+    var pokemonAtack: Int {
+        pokemon.attack
+    }
+
+    var pokemonDefense: Int {
+        pokemon.defense
+    }
+    
 }
