@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Pokemon: Codable {
+struct Pokemon: Decodable {
     let id: Int
     let name: String
     let sprites: Sprites
@@ -16,7 +16,32 @@ struct Pokemon: Codable {
     let weight: Int
     let abilities: [AbilitySlot]
     let cries: Cries
+    let stats: [Stat]
+    
+    var attack: Int {
+        return stats.first { $0.stat.name == "attack"}?.base_stat ?? 0
+    }
+    
+    var defense: Int {
+        return stats.first { $0.stat.name == "defense"}?.base_stat ?? 0
+    }
 }
+
+struct Stat: Decodable {
+    let base_stat: Int
+    let stat: StatInfo
+    
+//    enum CondingKeys: String, CodingKey {
+//        case baseStat = "base_stat"
+//        case stat
+//    }
+}
+
+struct StatInfo: Decodable {
+    let name: String
+    
+}
+
 
 struct Sprites: Codable {
     let frontDefault: String
@@ -56,6 +81,8 @@ struct Species: Codable {
 struct Cries: Codable {
     let latest, legacy: String
 }
+
+//let latest, legacy: String
 
 struct TypeSlot: Codable {
     let slot: Int

@@ -40,6 +40,7 @@ final class PokemonDetailViewModel {
         pokemon.cries.latest
     }
     
+    
     var pokemonDetails: String {
         """
         Altura: \(pokemon.height / 10) m
@@ -47,6 +48,21 @@ final class PokemonDetailViewModel {
         Tipos:  \(pokemonTypes)
         Habilidades: \(pokemonAbilities)
         """
+    
+        
     }
     
+    var pokemonAtack: Int {
+        pokemon.attack
+    }
+
+    var pokemonDefense: Int {
+        pokemon.defense
+    }
+
+    
 }
+
+
+//Ataque: \(pokemon.attack)
+//Defesa: \(pokemon.defense)

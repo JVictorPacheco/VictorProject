@@ -48,14 +48,10 @@ final class PokedexViewController: UIViewController{
         setupView()
         viewModel.loadPokemons()
         setupBindings()
-        buttonBackColor()
+        navigationItem.hidesBackButton = true
     
-        
     }
     
-    func buttonBackColor() {
-        navigationController?.navigationBar.tintColor = .white
-    }
     
     // MARK: - Setup
     private func setupView() {
@@ -143,14 +139,6 @@ final class PokedexViewController: UIViewController{
         path.close()
         return path
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     func setupSearchBar() {
         view.addSubview(searchBar)
