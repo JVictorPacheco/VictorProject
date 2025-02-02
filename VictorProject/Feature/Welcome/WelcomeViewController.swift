@@ -199,3 +199,10 @@ final class WelcomeViewController: UIViewController {
         navigationController?.pushViewController(pokedexVC, animated: true)
     }
 }
+
+extension WelcomeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Fecha o teclado
+        return true
+    }
+}

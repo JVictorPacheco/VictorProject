@@ -211,15 +211,9 @@ final class PokemonDetailViewController: UIViewController {
                 }
             }
         }
-        
-        // Reprodução do áudio
-        guard let audioURLString = viewModel.pokemonAudioUrl,
-              let audioURL = URL(string: audioURLString) else {
-            print("❌ Erro: URL do áudio inválida ou não encontrada!")
-            return
+        if let pokemonId = viewModel.pokemonId {
+            playLocalAudio(pokemonId: pokemonId)
         }
-        
-        playAudio(from: audioURL)
     }
     
     private func setupConstraints() {
@@ -297,11 +291,30 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     private func playAudio(from url: URL) {
-        let audioManager = AudioManager()
-
-        // Para tocar um arquivo OGG
-        audioManager.playOGGAudio(from: url)
-        print("🎵 Tocando áudio: \(url.absoluteString)")
+        if let player = audioPlayer {
+            player.pause() // Pausa qualquer áudio que esteja tocando
+        }
+        
+        let playerItem = AVPlayerItem(url: url)
+        audioPlayer = AVPlayer(playerItem: playerItem)
+        audioPlayer?.play()
+        
+        print("🎵 Tocando áudio: \(url.lastPathComponent)")
+    }
+    
+    func playLocalAudio(pokemonId: Int) {
+        let formattedId = String(format: "%03d", pokemonId)
+        
+        // Procura por arquivos que começam com o ID formatado
+        if let audioPath = Bundle.main.paths(forResourcesOfType: "wav", inDirectory: nil)
+            .first(where: { $0.contains("/\(formattedId) -") }) {
+            
+            let url = URL(fileURLWithPath: audioPath)
+            playAudio(from: url)
+            print("🎵 Tocando áudio: \(url.lastPathComponent)")
+        } else {
+            print("❌ Arquivo de áudio não encontrado para o Pokémon ID: \(pokemonId)")
+        }
     }
     
     func convertOGGToM4A(oggURL: URL, completion: @escaping (URL?) -> Void) {
