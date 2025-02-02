@@ -191,16 +191,34 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     @objc private func pokemonImageTapped() {
-        
+        // Feedback tátil
         let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-        feedbackGenerator.impactOccurred() // Isso gera a vibração tátil
-
-        guard let audioURLString = viewModel.pokemonAudioUrl, // A URL do áudio deve estar no ViewModel
+        feedbackGenerator.impactOccurred()
+        
+        UIView.animate(withDuration: 0.15, animations: {
+                // Primeiro diminui
+                self.pokemonImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                self.pokemonImageView.alpha = 0.7
+        }) { _ in
+            UIView.animate(withDuration: 0.15) {
+                // Depois volta com um leve giro
+                self.pokemonImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0).rotated(by: .pi * 0.03)
+                self.pokemonImageView.alpha = 1.0
+            } completion: { _ in
+                UIView.animate(withDuration: 0.1) {
+                    // Volta à posição normal
+                    self.pokemonImageView.transform = .identity
+                }
+            }
+        }
+        
+        // Reprodução do áudio
+        guard let audioURLString = viewModel.pokemonAudioUrl,
               let audioURL = URL(string: audioURLString) else {
             print("❌ Erro: URL do áudio inválida ou não encontrada!")
             return
         }
-
+        
         playAudio(from: audioURL)
     }
     
