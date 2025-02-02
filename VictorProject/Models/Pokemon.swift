@@ -15,6 +15,7 @@ struct Pokemon: Codable {
     let height: Int
     let weight: Int
     let abilities: [AbilitySlot]
+    let cries: Cries
 }
 
 struct Sprites: Codable {
@@ -45,16 +46,16 @@ struct OfficeArtwork: Codable {
     }
 }
 
+// MARK: - Species
+struct Species: Codable {
+    let name: String
+    let url: String
+}
 
-//struct PokemonDetail: Codable {
-//    let int: Int
-//    let name: String
-//    let sprites: Sprites
-//}
-//
-//struct PokemonType: Codable {
-//    let type: TypeDetail
-//}
+// MARK: - Cries
+struct Cries: Codable {
+    let latest, legacy: String
+}
 
 struct TypeSlot: Codable {
     let slot: Int
@@ -66,9 +67,6 @@ struct TypeDetail: Codable {
     let url: String
 }
 
-//struct PokemonAbility: Codable {
-//    let abilities: AbilityDetail
-//}
 
 struct AbilitySlot: Codable {
     let slot: Int
@@ -76,10 +74,10 @@ struct AbilitySlot: Codable {
     let ability: AbilityDetail
     
     enum CodingKeys: String, CodingKey {
-            case slot
-            case isHidden = "is_hidden"
-            case ability
-        }
+        case slot
+        case isHidden = "is_hidden"
+        case ability
+    }
 }
 
 struct AbilityDetail: Codable {

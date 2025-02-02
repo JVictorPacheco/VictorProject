@@ -1,5 +1,5 @@
 {
-  "originHash" : "d93a1220883155b112465c249305e8c18fbe32f4289abbb316f34a13b108d027",
+  "originHash" : "c8478b6d26905586e1d084f6d817aa204b11037e816be091463241202802e9e9",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
         "version" : "5.10.2"
+      }
+    },
+    {
+      "identity" : "audiokit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AudioKit/AudioKit.git",
+      "state" : {
+        "revision" : "2ebd422855e4645d3169f83d1765d1c8196b4f46",
+        "version" : "5.6.4"
       }
     },
     {

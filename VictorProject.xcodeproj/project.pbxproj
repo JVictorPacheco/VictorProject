@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3C49E542D4F03A5009F4193 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E3C49E532D4F03A5009F4193 /* AudioKit */; };
 		E3FEDAD32D4C801E006C545D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E3FEDAD22D4C801E006C545D /* SDWebImage */; };
 		FB10CF442D3DF18500D7A0A7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB10CF432D3DF18500D7A0A7 /* Alamofire */; };
 		FB8D2D5A2D35F22400BA6F6B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB8D2D592D35F22400BA6F6B /* SnapKit */; };
@@ -74,6 +75,7 @@
 			files = (
 				FBF8DBAF2D44167B0046035C /* Kingfisher in Frameworks */,
 				FB8D2D5A2D35F22400BA6F6B /* SnapKit in Frameworks */,
+				E3C49E542D4F03A5009F4193 /* AudioKit in Frameworks */,
 				E3FEDAD32D4C801E006C545D /* SDWebImage in Frameworks */,
 				FB10CF442D3DF18500D7A0A7 /* Alamofire in Frameworks */,
 			);
@@ -140,6 +142,7 @@
 				FB10CF432D3DF18500D7A0A7 /* Alamofire */,
 				FBF8DBAE2D44167B0046035C /* Kingfisher */,
 				E3FEDAD22D4C801E006C545D /* SDWebImage */,
+				E3C49E532D4F03A5009F4193 /* AudioKit */,
 			);
 			productName = VictorProject;
 			productReference = FB573B922D35E3CC0033AC2A /* VictorProject.app */;
@@ -228,6 +231,7 @@
 				FB10CF422D3DF18500D7A0A7 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FBF8DBAD2D44167B0046035C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E3FEDAD12D4C801E006C545D /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				E3C49E522D4F03A5009F4193 /* XCRemoteSwiftPackageReference "AudioKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FB573B932D35E3CC0033AC2A /* Products */;
@@ -311,7 +315,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6PMQ8TN4D7;
+				DEVELOPMENT_TEAM = L7A59Z5L42;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VictorProject/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PokeList;
@@ -347,7 +351,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L7A59Z5L42;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VictorProject/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PokeList;
@@ -604,6 +608,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E3C49E522D4F03A5009F4193 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.4;
+			};
+		};
 		E3FEDAD12D4C801E006C545D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -639,6 +651,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E3C49E532D4F03A5009F4193 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3C49E522D4F03A5009F4193 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
 		E3FEDAD22D4C801E006C545D /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E3FEDAD12D4C801E006C545D /* XCRemoteSwiftPackageReference "SDWebImage" */;

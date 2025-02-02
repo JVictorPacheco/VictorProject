@@ -14,40 +14,10 @@
             filePath = "VictorProject/Feature/Pokedex/PokemonDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "bindViewModel()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "60E6A0F3-49C8-48F9-A8A9-3418F860A0E9 - 349f4ef803e9583b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VictorProject.PokemonDetailViewController.bindViewModel() -&gt; ()"
-                  moduleName = "VictorProject.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andrepacheco/Documents/Dev/VictorProject/VictorProject/Feature/Pokedex/PokemonDetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "213"
-                  endingLineNumber = "213">
-               </Location>
-               <Location
-                  uuid = "60E6A0F3-49C8-48F9-A8A9-3418F860A0E9 - 349f4ef803e9583b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VictorProject.PokemonDetailViewController.bindViewModel() -&gt; ()"
-                  moduleName = "VictorProject.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andrepacheco/Documents/Dev/VictorProject/VictorProject/Feature/Pokedex/PokemonDetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "213"
-                  endingLineNumber = "213">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
