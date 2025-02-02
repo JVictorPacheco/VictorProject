@@ -264,13 +264,29 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     @objc private func pokemonImageTapped() {
-        guard let audioURLString = viewModel.pokemonAudioUrl, // A URL do áudio deve estar no ViewModel
-              let audioURL = URL(string: audioURLString) else {
-            print("❌ Erro: URL do áudio inválida ou não encontrada!")
-            return
-        }
+        // Feedback tátil
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        feedbackGenerator.impactOccurred()
         
-        playAudio(from: audioURL)
+        UIView.animate(withDuration: 0.15, animations: {
+                // Primeiro diminui
+                self.pokemonImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                self.pokemonImageView.alpha = 0.7
+        }) { _ in
+            UIView.animate(withDuration: 0.15) {
+                // Depois volta com um leve giro
+                self.pokemonImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0).rotated(by: .pi * 0.03)
+                self.pokemonImageView.alpha = 1.0
+            } completion: { _ in
+                UIView.animate(withDuration: 0.1) {
+                    // Volta à posição normal
+                    self.pokemonImageView.transform = .identity
+                }
+            }
+        }
+        if let pokemonId = viewModel.pokemonId {
+            playLocalAudio(pokemonId: pokemonId)
+        }
     }
     
     private func setupConstraints() {
@@ -400,14 +416,29 @@ final class PokemonDetailViewController: UIViewController {
     
     private func playAudio(from url: URL) {
         if let player = audioPlayer {
-            player.pause() // Pausar áudio se já estiver tocando
+            player.pause() // Pausa qualquer áudio que esteja tocando
         }
-        
         let playerItem = AVPlayerItem(url: url)
         audioPlayer = AVPlayer(playerItem: playerItem)
         audioPlayer?.play()
         
-        print("🎵 Tocando áudio: \(url.absoluteString)")
+        print("🎵 Tocando áudio: \(url.lastPathComponent)")
+    }
+    
+    func playLocalAudio(pokemonId: Int) {
+        let formattedId = String(format: "%03d", pokemonId)
+        
+        // Procura por arquivos que começam com o ID formatado
+        if let audioPath = Bundle.main.paths(forResourcesOfType: "wav", inDirectory: nil)
+            .first(where: { $0.contains("/\(formattedId) -") }) {
+            
+            let url = URL(fileURLWithPath: audioPath)
+            playAudio(from: url)
+            print("🎵 Tocando áudio: \(url.lastPathComponent)")
+        } else {
+            print("❌ Arquivo de áudio não encontrado para o Pokémon ID: \(pokemonId)")
+        }
+
     }
 }
 
