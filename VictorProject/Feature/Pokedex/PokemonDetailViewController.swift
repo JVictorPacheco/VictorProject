@@ -191,6 +191,10 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     @objc private func pokemonImageTapped() {
+        
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        feedbackGenerator.impactOccurred() // Isso gera a vibração tátil
+
         guard let audioURLString = viewModel.pokemonAudioUrl, // A URL do áudio deve estar no ViewModel
               let audioURL = URL(string: audioURLString) else {
             print("❌ Erro: URL do áudio inválida ou não encontrada!")
@@ -275,16 +279,25 @@ final class PokemonDetailViewController: UIViewController {
     }
     
     private func playAudio(from url: URL) {
-        if let player = audioPlayer {
-            player.pause() // Pausar áudio se já estiver tocando
-        }
+        let audioManager = AudioManager()
 
-        let playerItem = AVPlayerItem(url: url)
-        audioPlayer = AVPlayer(playerItem: playerItem)
-        audioPlayer?.play()
-
+        // Para tocar um arquivo OGG
+        audioManager.playOGGAudio(from: url)
         print("🎵 Tocando áudio: \(url.absoluteString)")
     }
+    
+    func convertOGGToM4A(oggURL: URL, completion: @escaping (URL?) -> Void) {
+            let asset = AVAsset(url: oggURL)
+            let export = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A)
+            export?.outputFileType = .m4a
+            
+            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent("converted.m4a")
+            export?.outputURL = outputURL
+            
+            export?.exportAsynchronously {
+                completion(outputURL)
+            }
+        }
 }
 
 
