@@ -78,7 +78,7 @@ struct Species: Codable {
 
 // MARK: - Cries
 struct Cries: Codable {
-    let latest, legacy: String
+    let latest: String
 }
 
 struct TypeSlot: Codable {
