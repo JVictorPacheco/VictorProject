@@ -27,7 +27,9 @@ final class PokedexViewController: UIViewController{
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(PokedexCell.self, forCellReuseIdentifier: "PokedexCell")
+
         tableView.backgroundColor = .clear
         return tableView
     }()
@@ -144,14 +146,6 @@ final class PokedexViewController: UIViewController{
         return path
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
     func setupSearchBar() {
         view.addSubview(searchBar)
         searchBar.delegate = self
@@ -214,14 +208,24 @@ extension PokedexViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        let pokemon = viewModel.pokemon(at: indexPath.row)
+//        
+//        var content = cell.defaultContentConfiguration()
+//        content.text = pokemon.name.capitalized
+//        cell.contentConfiguration = content
+//        
+//        return cell
+//    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokedexCell", for: indexPath) as? PokedexCell else {
+            return UITableViewCell()
+        }
+        
         let pokemon = viewModel.pokemon(at: indexPath.row)
-        
-        var content = cell.defaultContentConfiguration()
-        content.text = pokemon.name.capitalized
-        cell.contentConfiguration = content
-        
+        cell.configure(with: pokemon)
         return cell
     }
     
