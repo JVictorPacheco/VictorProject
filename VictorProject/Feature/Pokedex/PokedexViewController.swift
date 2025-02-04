@@ -50,13 +50,13 @@ final class PokedexViewController: UIViewController{
         setupView()
         viewModel.loadPokemons()
         setupBindings()
-        buttonBackColor()
-    
+        BackButtonDisappearing()
+     
         
     }
     
-    func buttonBackColor() {
-        navigationController?.navigationBar.tintColor = .white
+    func BackButtonDisappearing() {
+        navigationItem.hidesBackButton = true
     }
     
     // MARK: - Setup
