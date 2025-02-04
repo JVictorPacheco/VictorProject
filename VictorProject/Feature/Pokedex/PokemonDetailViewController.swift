@@ -286,7 +286,9 @@ final class PokemonDetailViewController: UIViewController {
         }
         if let pokemonId = viewModel.pokemonId {
             playLocalAudio(pokemonId: pokemonId)
+            viewModel.getEvolutions(for: pokemonId)
         }
+        
     }
     
     private func setupConstraints() {

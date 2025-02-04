@@ -25,7 +25,69 @@ struct Pokemon: Decodable {
     var defense: Int {
         return stats.first { $0.stat.name == "defense"}?.base_stat ?? 0
     }
+    
+    var life: Int {
+        return stats.first { $0.stat.name == "hp"}?.base_stat ?? 0
+    }
+    
+    var speed: Int {
+        return stats.first { $0.stat.name == "speed"}?.base_stat ?? 0
+    }
+    
+    var specialAttack: Int {
+        return stats.first { $0.stat.name == "special-attack"}?.base_stat ?? 0
+    }
+    
+    var specialDefense: Int {
+        return stats.first { $0.stat.name == "special-defense"}?.base_stat ?? 0
+    }
+    
 }
+
+enum PokemonType: String, CaseIterable {
+    case normal = "normal"
+    case fire = "fire"
+    case water = "water"
+    case electric = "electric"
+    case grass = "grass"
+    case ice = "ice"
+    case fighting = "fighting"
+    case poison = "poison"
+    case ground = "ground"
+    case flying = "flying"
+    case psychic = "psychic"
+    case bug = "bug"
+    case rock = "rock"
+    case ghost = "ghost"
+    case dragon = "dragon"
+    case dark = "dark"
+    case steel = "steel"
+    case fairy = "fairy"
+    
+    func emoji() -> String {
+        switch self {
+        case .normal: return "🔘"
+        case .fire: return "🔥"
+        case .water: return "💧"
+        case .electric: return "⚡️"
+        case .grass: return "🌿"
+        case .ice: return "❄️"
+        case .fighting: return "🥊"
+        case .poison: return "☠️"
+        case .ground: return "🏜"
+        case .flying: return "🕊"
+        case .psychic: return "🔮"
+        case .bug: return "🐛"
+        case .rock: return "🪨"
+        case .ghost: return "👻"
+        case .dragon: return "🐉"
+        case .dark: return "🌑"
+        case .steel: return "🔩"
+        case .fairy: return "🧚"
+        }
+    }
+}
+
 
 struct Stat: Decodable {
     let base_stat: Int
@@ -107,4 +169,43 @@ struct AbilitySlot: Codable {
 struct AbilityDetail: Codable {
     let name: String
     let url: String
+}
+
+
+struct PokemonSpecies: Decodable {
+    let evolutionChain: EvolutionChainURL
+    
+    enum CodingKeys: String, CodingKey {
+        case evolutionChain = "evolution_chain"
+    }
+}
+
+struct EvolutionChainURL: Decodable {
+    let url: String
+}
+
+struct EvolutionChain: Decodable {
+    let chain: EvolutionStep
+}
+
+struct EvolutionStep: Decodable {
+    let species: Species
+    let evolvesTo: [EvolutionStep]
+    
+    enum CodingKeys: String, CodingKey {
+        case species
+        case evolvesTo = "evolves_to"
+    }
+}
+
+struct EvolutionData {
+    let name: String
+    let imageURL: String
+}
+
+extension Pokemon {
+    var typeEmojis: String {
+        let emojis = types.compactMap { PokemonType(rawValue: $0.type.name)?.emoji() }
+        return emojis.joined(separator: " ") // Exemplo: "🔥 🕊" para Charizard
+    }
 }

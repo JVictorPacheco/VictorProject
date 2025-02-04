@@ -52,7 +52,6 @@ final class PokedexViewController: UIViewController{
         setupBindings()
         buttonBackColor()
     
-        
     }
     
     func buttonBackColor() {
@@ -61,7 +60,7 @@ final class PokedexViewController: UIViewController{
     
     // MARK: - Setup
     private func setupView() {
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
         
         setupWelcomeLabel()
         setupSearchBar()
@@ -74,7 +73,10 @@ final class PokedexViewController: UIViewController{
         super.viewDidLayoutSubviews()
         // Garantir que o fundo seja recriado sempre que o layout for atualizado
         setupGradient()
-        setupHoneycombPattern()
+        //        setupHoneycombPattern()
+        let backgroundView = PokedexBackgroundView(frame: view.bounds)
+        view.addSubview(backgroundView)
+        view.sendSubviewToBack(backgroundView) // Enviar para o fundo
     }
     
     // MARK: - Setup Gradient
