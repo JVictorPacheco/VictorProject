@@ -50,7 +50,11 @@ final class PokedexViewController: UIViewController{
         setupView()
         viewModel.loadPokemons()
         setupBindings()
+        BackButtonDisappearing()
+    }
     
+    func BackButtonDisappearing() {
+        navigationItem.hidesBackButton = true
     }
     
 

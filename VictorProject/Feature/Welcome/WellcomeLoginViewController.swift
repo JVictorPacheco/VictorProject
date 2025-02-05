@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class WelcomeViewController: UIViewController {
+final class WellcomeLoginViewController: UIViewController {
     // MARK: - UI Components
 //    private let gradientLayer: CAGradientLayer = {
 //        let gradientLayer = CAGradientLayer()
@@ -200,7 +200,7 @@ final class WelcomeViewController: UIViewController {
     }
 }
 
-extension WelcomeViewController: UITextFieldDelegate {
+extension WellcomeLoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // Fecha o teclado
         return true
