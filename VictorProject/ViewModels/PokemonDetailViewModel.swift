@@ -42,9 +42,9 @@ final class PokemonDetailViewModel {
     
     var pokemonDetails: String {
         """
-        Altura: \(pokemon.height / 10) m
-        Peso:   \(pokemon.weight / 10) kg
-        Tipos:  \(pokemonTypes)
+        Altura: \((Double(pokemon.height) / 10.0)) m
+        Peso:   \((Double(pokemon.weight) / 10.0)) kg
+        Tipos:  \(pokemon.typeEmojis)
         Habilidades: \(pokemonAbilities)
         """
     }
@@ -56,5 +56,27 @@ final class PokemonDetailViewModel {
     var pokemonDefense: Int {
         pokemon.defense
     }
+
+    var pokemonSpecialAtack: Int {
+        pokemon.specialAttack
+    }
+
+    var pokemonSpecialDefense: Int {
+        pokemon.specialDefense
+    }
+
+    var pokemonLife: Int {
+        pokemon.life
+    }
+
+    var pokemonSpeed: Int {
+        pokemon.speed
+    }
     
+    public func getEvolutions(for id: Int) {
+        PokemonAPIService().fetchPokemonEvolutions(for: id) { evolutions in
+            print("Linha de evolução:", evolutions.joined(separator: " → "))
+        }
+    }
+
 }
